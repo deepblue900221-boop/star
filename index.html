@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 생일 별자리 연구소</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body { 
+    font-family: "한컴산뜻돋움", "Noto Sans KR", sans-serif; 
+    background: linear-gradient(to bottom, #fdfbfb 0%, #e4f0f5 100%);
+    color: #333; 
+    text-align: center; 
+    padding: 0; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.container { 
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255,255,255,0.9); 
+    padding: 30px 20px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
+}
+h1 { font-size: 1.8em; color: #5a7d8a; margin-bottom: 20px; font-weight: 500; }
+.input-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+input[type=number] { 
+    width: 70px; padding: 15px; font-size: 1.2em; text-align: center;
+    border: 2px solid #e0e0e0; border-radius: 12px; font-family: inherit;
+}
+input[type=number]:focus { outline: none; border-color: #a1c4fd; }
+button { 
+    width: 100%; padding: 15px; font-size: 1.1em; font-weight: 500;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb); 
+    color: #333; border: none; border-radius: 15px; 
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+}
+button:active { transform: scale(0.98); }
+#result { margin-top: 20px; text-align: left; display: none; }
+.card { 
+    background: rgba(255,255,255,0.8); 
+    padding: 15px; 
+    border-radius: 12px; 
+    margin-bottom: 12px; 
+    border-left: 5px solid #a1c4fd;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+.card h2 { margin: 0 0 8px; font-size: 1em; color: #5a7d8a; }
+.card p { margin: 0; color: #555; }
+.card strong { color: #4a6b7a; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>✨ 나의 생일 별자리 연구소</h1>
+    
+    <div class="input-group">
+        <input type="number" id="month" placeholder="월" min="1" max="12">
+        <input type="number" id="day" placeholder="일" min="1" max="31">
+    </div>
+    <button onclick="탐험시작()">별자리 탐험 시작!</button>
+
+    <div id="result">
+        <div class="card">
+            <h2>🌸 나의 계절</h2>
+            <p id="season-text"></p>
+        </div>
+        <div class="card">
+            <h2>🌟 나의 별자리</h2>
+            <p id="zodiac-text"></p>
+        </div>
+        <div class="card">
+            <h2>🔭 계절 밤하늘의 주인공</h2>
+            <p id="constellation-text"></p>
+        </div>
+        <div class="card">
+            <h2>💖 오늘의 행운 메세지</h2>
+            <p id="psycho-text"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function 탐험시작(){
+    const m = document.getElementById('month').value;
+    const d = document.getElementById('day').value;
+    
+    if(!m || !d){ alert('월과 일을 모두 입력해줘!'); return; }
+    if(m < 1 || m > 12){ alert('월은 1부터 12까지만 입력해줘.'); return; }
+    if(d < 1 || d > 31){ alert('일은 1부터 31까지만 입력해줘.'); return; }
+
+    let season = "";
+    let seasonDetail = "";
+    if(m >= 3 && m <= 5){ season = "봄"; seasonDetail = "봄은 자연이 깨어나는 계절이야. 따뜻한 바람이 불고 새싹이 돋아나며, 밤하늘에는 '봄의 대삼각형'이 떠오른다. 새로운 시작을 알리는 봄의 아이답게 호기심이 많고 밝은 에너지를 가지고 있어."; }
+    else if(m >= 6 && m <= 8){ season = "여름"; seasonDetail = "여름은 태양이 가장 강력하게 내리쬐는 계절이야. 녹음이 짙어지고 별들이 맑게 빛난다. 밤하늘에는 '여름의 대삼각형'이 선명하게 보인다. 뜨거운 열정을 가진 여름의 아이는 리더십이 강하고 적극적이야."; }
+    else if(m >= 9 && m <= 11){ season = "가을"; seasonDetail = "가을은 결실의 계절이야. 하늘이 높고 맑아지며, 밤하늘에는 '가을의 대사각형'과 W모양의 카시오페이아자리가 보인다. 풍성한 마음씨를 가진 가을의 아이는 차분하고 친구를 잘 챙기는 따뜻한 친구야."; }
+    else{ season = "겨울"; seasonDetail = "겨울은 추위가 시작되는 계절이지만, 밤하늘은 1년 중 가장 맑아! '겨울의 대삼각형'과 오리온자리가 웅장하게 빛나. 차가운 바람 속에서도 꿋꿋한 겨울의 아이는 인내심이 강하고 생각이 깊은 편이야."; }
+    document.getElementById('season-text').innerText = seasonDetail;
+
+    const zodiacData = getZodiacDetail(m,d);
+    document.getElementById('zodiac-text').innerText = zodiacData.text;
+
+    const constellationsDetail = {
+        '봄': "봄의 대삼각형을 찾아보자! 목동자리의 아크투루스, 사자자리의 레굴루스, 처녀자리의 스피카를 연결하면 삼각형이 그려진다. 이 별자리들을 찾으면 봄 밤하늘의 길잡이가 될 수 있어!",
+        '여름': "여름 밤하늘의 핵심은 여름의 대삼각형이야. 거문고자리의 베가, 독수리자리의 알타이르, 백조자리의 데네브가 환하게 빛나. 견우와 직녀 전설의 주인공인 별들도 여기 있어!",
+        '가을': "가을에는 가을의 대사각형이 보여. 페가수스자리 네 개의 별이 사각형을 이룬다. 그리고 W자 모양의 카시오페이아자리는 북극성 찾는 법을 알려주는 중요한 별자리야.",
+        '겨울': "겨울은 별자리가 가장 화려해! 오리온자리(삼태성)의 세 개 별이 일직선으로 반짝인다. 큰개자리의 시리우스와 쌍둥이자리도 함께 찾아보자. 따뜻한 옷 입고 밤하늘을 올려다보면 환상적인 별쇼를 볼 수 있어!"
+    };
+    document.getElementById('constellation-text').innerHTML = constellationsDetail[season];
+
+    const powers = {
+        '창의력': '너는 새로운 아이디어를 떠올리는 재주가 있어. 친구들과의 모임에서 너의 아이디어가 빛을 발할 거야.',
+        '공감능력': '친구의 마음을 잘 이해하고 위로해주는 능력이 있어. 네가 있어 학급 분위기가 훨씬 따뜻해질 거야.',
+        '도전정신': '어려운 문제도 포기하지 않고 끝까지 파고드는 끈기가 있어. 그 힘으로 올해 목표를 꼭 이룰 수 있을 거야.',
+        '웃음바이러스': '너의 밝은 미소가 주변까지 행복하게 만들어. 오늘 하루 친구들에게 너의 웃음을 나눠줘.',
+        '집중력': '한 번 몰두하면 시간 가는 줄 모르는 집중력이 대단해. 네가 원하는 것을 반드시 손에 넣을 수 있을 거야.'
+    };
+    const powerKey = Object.keys(powers)[(m*d) % 5];
+    document.getElementById('psycho-text').innerHTML = `너의 숨은 능력은 **[${powerKey}]**!<br><br>${powers[powerKey]}<br><br><small>💡 오늘의 행운 아이템: ${zodiacData.lucky}</small>`;
+
+    document.getElementById('result').style.display = 'block';
+}
+
+function getZodiacDetail(m,d){
+    const zodiac = [
+        {name:'염소자리', text:'책임감이 강하고 성실해. 친구들이 너를 믿음직스럽게 생각해. 계획을 세우고 실천하는 데 아주 뛰어난 능력이 있어.', lucky:'파란색 노트'},
+        {name:'물병자리', text:'아이디어가 톡톡 튀는 발명가 스타일! 남들이 생각하지 못한 새로운 방법을 찾아내는 재주가 있어.', lucky:'별 모양 스티커'},
+        {name:'물고기자리', text:'상상력이 풍부하고 감수성이 예민해. 친구들의 기분을 잘 맞춰주고 따뜻하게 대하는 착한 마음을 가졌어.', lucky:'물고기 그림'},
+        {name:'양자리', text:'용감하고 에너지가 넘쳐! 새로운 일에 도전하는 것을 두려워하지 않는 리더십이 있어.', lucky:'빨간색 연필'},
+        {name:'황소자리', text:'꾸준하고 끈기 있는 성격이야. 한 번 마음먹은 일은 끝까지 해내는 의지가 대단해.', lucky:'녹색 식물'},
+        {name:'쌍둥이자리', text:'호기심이 많고 말하기 좋아해. 친구들과 대화할 때 분위기를 띄우는 능력이 있어.', lucky:'노란색 양말'},
+        {name:'게자리', text:'친구들을 챙기는 다정한 성격이야. 친구가 힘들 때 가장 먼저 달려가 도와주는 따뜻한 마음을 가졌어.', lucky:'달 모양 열쇠고리'},
+        {name:'사자자리', text:'자신감 넘치고 무대 위에 서는 것을 좋아해. 친구들 앞에서 멋진 모습을 보여줄 수 있는 스타성이 있어.', lucky:'금색 펜'},
+        {name:'처녀자리', text:'꼼꼼하고 정리정돈을 잘해. 실수를 줄이고 완벽하게 일을 처리하는 능력이 뛰어나.', lucky:'체크리스트'},
+        {name:'천칭자리', text:'공평하고 평화를 사랑하는 성격이야. 친구들 사이 다툼을 중재하고 화해시키는 능력이 있어.', lucky:'하얀 손수건'},
+        {name:'전갈자리', text:'집중력이 대단해. 관심 있는 분야에 대해선 누구보다 깊게 파고드는 탐구심이 있어.', lucky:'보라색 지우개'},
+        {name:'사수자리', text:'자유롭고 모험을 좋아해. 여행을 꿈꾸며 넓은 세상을 향해 나아가려는 열정이 있어.', lucky:'여행 가방 스티커'}
+    ];
+    
+    if ((m==12 && d>=25) || (m==1 && d<=19)) return zodiac[0];
+    if (m==1 && d>=20) return zodiac[1];
+    if (m==2 && d>=19) return zodiac[2];
+    if (m==3 && d>=21) return zodiac[3];
+    if (m==4 && d>=20) return zodiac[4];
+    if (m==5 && d>=21) return zodiac[5];
+    if (m==6 && d>=22) return zodiac[6];
+    if (m==7 && d>=23) return zodiac[7];
+    if (m==8 && d>=23) return zodiac[8];
+    if (m==9 && d>=24) return zodiac[9];
+    if (m==10 && d>=23) return zodiac[10];
+    if (m==11 && d>=23) return zodiac[11];
+    return zodiac[0];
+}
+</script>
+</body>
+</html>
